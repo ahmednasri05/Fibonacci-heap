@@ -1,22 +1,24 @@
+/*
 #include "Fibonacci_Heap.h";
 #include <iostream>
 #include <cmath>
 #include <vector>
 using namespace std;
+
 template <typename ValueType>
-FibonacciHeap< ValueType>::FibonacciHeap() { //constructor
+FibonacciHeap<ValueType>::FibonacciHeap() {
     minNode = nullptr;
     nodeCount = 0;
 }
 
 template <typename ValueType>
+FibonacciHeap<ValueType>::~FibonacciHeap() {
+    deleteAll(minNode);
+}
+
+template <typename ValueType>
 void FibonacciHeap<ValueType>::insert(ValueType value) {
     Node* x = new Node(value);
-
-    x->degree = 0;
-    x->parent = nullptr;
-    x->child = nullptr;
-    x->marked = false;
     if (minNode == nullptr) {
         x->right = x;
         x->left = x;
@@ -33,38 +35,87 @@ void FibonacciHeap<ValueType>::insert(ValueType value) {
     }
     nodeCount++;
 }
+
+template <typename ValueType>
+FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::extractMin() {
+    // Empty implementation
+}
 template <typename ValueType>
 typename FibonacciHeap<ValueType>::Node* FibonacciHeap<ValueType>::getMin() const {
-    // Implementation here
-    return this->minNode;
+    return minNode;
 }
 
 template <typename ValueType>
-typename FibonacciHeap<ValueType>::Node* FibonacciHeap<ValueType>::extractMin() {
-     Node* z = minNode;
-     if(!empty()){
-        while(z->child != nullptr)
-        //add x to the roo tlist of H
-           cut(z->child, z); // x.p = nullprt   z.degree--  x.marked = false insertNode(z-> child) nodeCount++
-        // remove z from the root list
-        z->left->right = z->right;
-        z->right->left = z->left;  
-        if(z == z->right)
-            minNode = nullptr;
-        else{
-            minNode = z->right;
-            consolidate();
-            nodeCount--;
-        }   
-        return z; 
-     }
-    cerr<<"The heap is empty"<<endl;
-    return nullptr;
-}
-
-template <typename ValueType>
-void FibonacciHeap<ValueType>::decreaseKey(Node* x, ValueType k) {
+void FibonacciHeap<ValueType>::merge(FibonacciHeap& other) {
     // Empty implementation
+}
+
+template <typename ValueType>
+bool FibonacciHeap<ValueType>::isEmpty() const{
+    // Empty implementation
+}
+
+template <typename ValueType>
+void FibonacciHeap<ValueType>::decreaseKey(Node* node, ValueType newValue) {
+    if (newValue > node->value) {
+        cout << "New Value is greater than current" << endl;
+        exit(0);
+    }
+    //Update the desired node with the decreased value
+    node->value = newValue;
+    //Get Parent
+    Node* parent = node->parent;
+    //If new value is smaller than parent cut and mark parent
+    if (parent != nullptr && parent->value > node->value) {
+        cout << "hell" << endl;
+        cut(node, parent);
+        cascadingCut(parent);
+    }
+    //Update min
+    if (node->value < minNode->value) {
+        minNode = node;
+    }
+
+}
+
+template <typename ValueType>
+void FibonacciHeap<ValueType>::cut(Node* x, Node* y) {
+    //If x is the only child, set y's child to nullptr.
+    if (x->right == x) {
+        y->child = nullptr;
+    } else {
+        //Remove x from its sibilings
+        x->right->left = x->left;
+        x->left->right = x->right;
+        //Connect y child to any of the siblings
+        if (y->child == x) {
+            y->child = x->right;
+        }
+    }
+    y->degree--;
+    //Add the node in the root list
+    x->right = minNode;
+    x->left = minNode->left;
+    minNode->left->right = x;
+    minNode->left = x;
+    //Remove its parent and unmark it
+    x->parent = nullptr;
+    x->marked = false;
+}
+template <typename ValueType>
+void FibonacciHeap<ValueType>::cascadingCut(Node* y) {
+    Node* z = y->parent;
+    //Only enters if y has parent because if y doesn't have a parent it is already in the root list
+    if (z != nullptr) {
+        //Mark true if unmarked because this function is always called after cutting
+        if (!y->marked) {
+            y->marked = true;
+        } else {
+            //If marked cut and recurse using the parent until until a non-marked node is found or the root is reached
+            cut(y, z);
+            cascadingCut(z);
+        }
+    }
 }
 
 template <typename ValueType>
@@ -126,21 +177,53 @@ for (int i = 0; i < arraySize; i++) {
 }
 
 template <typename ValueType>
-void FibonacciHeap<ValueType>::cut(Node* x, Node* y) {
-    // Empty implementation
-}
-
-template <typename ValueType>
-void FibonacciHeap<ValueType>::cascadingCut(Node* y) {
-    // Empty implementation
-}
-template <typename ValueType>
-void FibonacciHeap<ValueType>::link(Node* y, Node* x) {
-    // Empty implementation
-}
-template <typename ValueType>
 void FibonacciHeap<ValueType>::swap(Node*& x, Node*& y) {
     Node* temp = x; 
     x = y;
     y = temp;
 }
+
+template <typename ValueType>
+void FibonacciHeap<ValueType>::link(Node* y, Node* x) {
+    // Empty implementation
+}
+template <typename ValueType>
+void FibonacciHeap<ValueType>::deleteAll(Node* node) {
+    // Empty implementation
+}
+template <typename ValueType>
+void FibonacciHeap<ValueType>::printTree(Node* node, int level) {
+    if (!node) return;
+
+    Node* start = node;
+    do {
+        // Indent according to the level
+        for (int i = 0; i < level; ++i) {
+            cout << "   ";
+        }
+        // Print the node value
+        cout << node->value;
+        if (node->child) {
+            cout << " -> {" << endl;
+            printTree(node->child, level + 1);
+            for (int i = 0; i < level; ++i) {
+                cout << "   ";
+            }
+            cout << "}";
+        }
+        cout << endl;
+
+        node = node->right;
+    } while (node != start);
+}
+
+template <typename ValueType>
+void FibonacciHeap<ValueType>::print() {
+    if (!minNode) {
+        cout << "The Fibonacci Heap is empty." << endl;
+        return;
+    }
+
+    cout << "Fibonacci Heap:" << endl;
+    printTree(minNode, 0);
+}  */
