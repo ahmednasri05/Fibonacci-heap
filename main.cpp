@@ -37,14 +37,7 @@ int main() {
     cout << "\nDecreasing a key in the heap..." << endl;
     // Decrease the key of a specific node (for demonstration, use node with value 15)
     // NOTE: Find the node with value 15 manually for testing
-    FibonacciHeap<int>::Node* targetNode = nullptr;
-    for (FibonacciHeap<int>::Node* cur = fibHeap.getMin(); cur != nullptr; cur = cur->right) {
-        if (cur->value == 15) {
-            targetNode = cur;
-            break;
-        }
-        if (cur->right == fibHeap.getMin()) break; // Stop circular iteration
-    }
+    FibonacciHeap<int>::Node* targetNode = fibHeap.findNode(fibHeap.getMin(), 15);
 
     if (targetNode) {
         fibHeap.decreaseKey(targetNode, 2); // Decrease the value to 2

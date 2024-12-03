@@ -38,6 +38,7 @@ public:
     bool isEmpty() const; // john, farrag <------
     NodePointer extractMin(); // nasri, farrag <------ test
     void decreaseKey(Node* node, ValueType newValue); // hady
+    NodePointer findNode(FibonacciHeap<ValueType>::Node* start, ValueType value);
     void deleteNode(Node* node); // hady <------
     NodePointer getMin() const; //john
     void printTree(Node* node, int level);
@@ -140,7 +141,6 @@ void FibonacciHeap<ValueType>::decreaseKey(Node* node, ValueType newValue) {
     Node* parent = node->parent;
     //If new value is smaller than parent cut and mark parent
     if (parent != nullptr && parent->value > node->value) {
-        cout << "hell" << endl;
         cut(node, parent);
         cascadingCut(parent);
     }
@@ -189,6 +189,23 @@ void FibonacciHeap<ValueType>::cascadingCut(Node* y) {
             cascadingCut(z);
         }
     }
+}
+
+template <typename ValueType>
+typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::findNode(Node* start, ValueType value) {
+    if (!start) return nullptr;
+
+    FibonacciHeap<ValueType>::Node* current = start;
+    do {
+        if (current->value == value) return current;
+        if (current->child) {
+            FibonacciHeap<ValueType>::Node* result = findNode(current->child, value);
+            if (result) return result;
+        }
+        current = current->right;
+    } while (current != start);
+
+    return nullptr;
 }
 
 template <typename ValueType>
