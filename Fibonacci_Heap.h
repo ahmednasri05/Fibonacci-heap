@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <cmath>
 #include "Fibonacci_Heap.cpp"
+using namespace std;
 // Conventions: NIL = nullptr
 //              Node* left and right pointers are used to form a circular doubly linked list
 //              Node* child pointer is used to point to the leftmost child
@@ -90,7 +91,7 @@ void FibonacciHeap<ValueType>::insert(ValueType value) {
 }
 
 template <typename ValueType>
-FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::extractMin() {
+typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::extractMin() {
     // Empty implementation
 }
 template <typename ValueType>
