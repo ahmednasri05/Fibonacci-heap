@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <cmath>
 #include "Fibonacci_Heap.cpp"
+#include <vector>
 using namespace std;
 // Conventions: NIL = nullptr
 //              Node* left and right pointers are used to form a circular doubly linked list
@@ -93,7 +94,7 @@ void FibonacciHeap<ValueType>::insert(ValueType value) {
 template <typename ValueType>
 typename FibonacciHeap<ValueType>::Node* FibonacciHeap<ValueType>::extractMin() {
      Node* z = minNode;
-     if(!empty()){
+     if(!isEmpty()){
         while(z->child != nullptr)
         //add x to the roo tlist of H
            cut(z->child, z); // x.p = nullprt   z.degree--  x.marked = false insertNode(z-> child) nodeCount++
@@ -124,7 +125,7 @@ void FibonacciHeap<ValueType>::merge(FibonacciHeap& other) {
 
 template <typename ValueType>
 bool FibonacciHeap<ValueType>::isEmpty() const{
-    // Empty implementation
+    return minNode == nullptr;
 }
 
 template <typename ValueType>
@@ -257,7 +258,28 @@ void FibonacciHeap<ValueType>::swap(Node*& x, Node*& y) {
 
 template <typename ValueType>
 void FibonacciHeap<ValueType>::link(Node* y, Node* x) {
-    // Empty implementation
+    // Remove y from the root list
+    y->left->right = y->right;
+    y->right->left = y->left;
+
+    // Make y a child of x
+    y->parent = x;
+    if (x->child == nullptr) {
+        x->child = y;
+        y->right = y;
+        y->left = y;
+    } else {
+        y->right = x->child;
+        y->left = x->child->left;
+        x->child->left->right = y;
+        x->child->left = y;
+    }
+
+    // Increase the degree of x
+    x->degree++;
+
+    // Mark y as false
+    y->marked = false;
 }
 template <typename ValueType>
 void FibonacciHeap<ValueType>::deleteAll(Node* node) {
