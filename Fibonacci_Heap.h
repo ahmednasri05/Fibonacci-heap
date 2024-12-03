@@ -33,11 +33,11 @@ public:
     ~FibonacciHeap();
 
     void insert(ValueType value); // mohamed tarek
-    void merge(FibonacciHeap& other); // mohamed tarek
-    bool isEmpty() const; // john, farrag
-    NodePointer extractMin(); // nasri, farrag
+    void merge(FibonacciHeap& other); // mohamed tarek <------
+    bool isEmpty() const; // john, farrag <------
+    NodePointer extractMin(); // nasri, farrag <------ test
     void decreaseKey(Node* node, ValueType newValue); // hady
-    void deleteNode(Node* node); // hady
+    void deleteNode(Node* node); // hady <------
     NodePointer getMin() const; //john
     void printTree(Node* node, int level);
     void print();
@@ -49,12 +49,12 @@ private:
     //Used by decrease key to clean up the heap to be in the fib sequence
     void consolidate(); // nasri
     //Used by the consolidate function to make a node in the root list become a child
-    void link(Node* y, Node* x); // mohamed tarek
+    void link(Node* y, Node* x); // mohamed tarek <------
     //Used by decrease key to remove a child and append it to the root list
     void cut(Node* x, Node* y); //hady NOTE: check if this is the last child of y, if so, set y->child to nullptr
     //Used by decrease key to propagate the cut upwards through the tree, recursively until a non-marked node is found or the root is reached.
     void cascadingCut(Node* y); // hady
-    void deleteAll(Node* node); // farrag
+    void deleteAll(Node* node); // farrag <------
     void swap(Node*& x, Node*& y);
 };
 
@@ -91,8 +91,26 @@ void FibonacciHeap<ValueType>::insert(ValueType value) {
 }
 
 template <typename ValueType>
-typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::extractMin() {
-    // Empty implementation
+typename FibonacciHeap<ValueType>::Node* FibonacciHeap<ValueType>::extractMin() {
+     Node* z = minNode;
+     if(!empty()){
+        while(z->child != nullptr)
+        //add x to the roo tlist of H
+           cut(z->child, z); // x.p = nullprt   z.degree--  x.marked = false insertNode(z-> child) nodeCount++
+        // remove z from the root list
+        z->left->right = z->right;
+        z->right->left = z->left;  
+        if(z == z->right)
+            minNode = nullptr;
+        else{
+            minNode = z->right;
+            consolidate();
+            nodeCount--;
+        }   
+        return z; 
+     }
+    cerr<<"The heap is empty"<<endl;
+    return nullptr;
 }
 template <typename ValueType>
 typename FibonacciHeap<ValueType>::Node* FibonacciHeap<ValueType>::getMin() const {
