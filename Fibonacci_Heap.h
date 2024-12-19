@@ -38,7 +38,7 @@ public:
     bool isEmpty() const; // john, farrag <------
     NodePointer extractMin(); // nasri, farrag <------ test
     void decreaseKey(Node* node, ValueType newValue); // hady
-    NodePointer findNode(FibonacciHeap<ValueType>::Node* start, ValueType value);
+    NodePointer findNode(ValueType value);
     void deleteNode(Node* node); // hady <------
     NodePointer getMin() const; //john
     void printTree(Node* node, int level);
@@ -47,7 +47,8 @@ public:
 private:
     Node* minNode;
     int nodeCount;
-
+    unordered_map<ValueType, Node*> nodeMap;
+    
     //Used by decrease key to clean up the heap to be in the fib sequence
     void consolidate(); // nasri
     //Used by the consolidate function to make a node in the root list become a child
@@ -89,6 +90,7 @@ void FibonacciHeap<ValueType>::insert(ValueType value) {
             minNode = x;
         }
     }
+    nodeMap[value] = x;
     nodeCount++;
 }
 
@@ -96,8 +98,10 @@ template <typename ValueType>
 typename FibonacciHeap<ValueType>::Node* FibonacciHeap<ValueType>::extractMin() {
      Node* z = minNode;
      if(!isEmpty()){
+        //Remove from the map
+        nodeMap.erase(z->value);
         while(z->child != nullptr)
-        //add x to the roo tlist of H
+        //add x to the root list of H
            cut(z->child, z); // x.p = nullprt   z.degree--  x.marked = false insertNode(z-> child) nodeCount++
         // remove z from the root list
         z->left->right = z->right;
@@ -135,8 +139,14 @@ void FibonacciHeap<ValueType>::decreaseKey(Node* node, ValueType newValue) {
         cout << "New Value is greater than current" << endl;
         exit(0);
     }
+    //Remove the old value from the map
+    nodeMap.erase(node->value);
+
     //Update the desired node with the decreased value
     node->value = newValue;
+
+    //Add the new value to the map
+    nodeMap[newValue] = node;
     //Get Parent
     Node* parent = node->parent;
     //If new value is smaller than parent cut and mark parent
@@ -192,25 +202,19 @@ void FibonacciHeap<ValueType>::cascadingCut(Node* y) {
 }
 
 template <typename ValueType>
-typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::findNode(Node* start, ValueType value) {
-    if (!start) return nullptr;
-
-    FibonacciHeap<ValueType>::Node* current = start;
-    do {
-        if (current->value == value) return current;
-        if (current->child) {
-            FibonacciHeap<ValueType>::Node* result = findNode(current->child, value);
-            if (result) return result;
-        }
-        current = current->right;
-    } while (current != start);
-
-    return nullptr;
+typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::findNode(ValueType value) {
+    // Use the unordered_map for O(1) lookup
+    auto val = nodeMap.find(value);  
+    if (val != nodeMap.end()) {
+        return val->second;  
+    }
+    return nullptr; 
 }
 
 template <typename ValueType>
 void FibonacciHeap<ValueType>::deleteNode(Node* x) {
-    // Empty implementation
+    decreaseKey(x, numeric_limits<ValueType>::lowest());
+    extractMin();
 }
 
 template <typename ValueType>
