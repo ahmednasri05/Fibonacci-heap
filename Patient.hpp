@@ -21,6 +21,7 @@ public:
     void setDescription(const string& newDescription);
     friend ostream& operator<<(ostream& os, const Patient& patient);
     bool operator>(const Patient& other) const;
+    bool operator<(const Patient& other) const;
 
 private:
     string name;

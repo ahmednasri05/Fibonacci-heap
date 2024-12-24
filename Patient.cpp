@@ -114,6 +114,10 @@ ostream& operator<<(ostream& os, const Patient& patient) {
 bool Patient::operator>(const Patient& other) const {
     return this->calculatePriority() > other.calculatePriority();
 }
+bool Patient::operator<(const Patient& other) const {
+    return this->calculatePriority() < other.calculatePriority();
+}
+
 int main() {
     // Test case 1: Valid patient
     Patient patient1("John Doe", 12345, 30, 3, "Flu symptoms");
