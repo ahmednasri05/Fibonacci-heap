@@ -2,33 +2,19 @@
 #define FIBONACCI_HEAP_H
 
 #include <iostream>
-#include <unordered_map>
 #include <cmath>
 #include <vector>
+#include "HashMap.h"
 using namespace std;
+
 // Conventions: NIL = nullptr
 //              Node* left and right pointers are used to form a circular doubly linked list
 //              Node* child pointer is used to point to the leftmost child
 
 template <typename ValueType>
 class FibonacciHeap {
-public:
-    FibonacciHeap();
-    ~FibonacciHeap();
-
-    void insert(ValueType value); 
-    void merge(FibonacciHeap& other); 
-    bool isEmpty() const; 
-    ValueType extractMin(); 
-    void decreaseKey(typename FibonacciHeap<ValueType>::Node* node, ValueType newValue); 
-    NodePointer findNode(ValueType value);  
-    void deleteNode(ValueType value); // has to take ValueType not Node*
-    ValueType getMin() const; 
-    void print();
-
 private:
 struct Node {
-        public:  // Node must tbe private , because the user should not be able to create a node without the heap
         ValueType value;
         int degree;
         bool marked;
@@ -43,21 +29,34 @@ struct Node {
     typedef Node* NodePointer;
     Node* minNode;
     int nodeCount;
-    unordered_map<ValueType, Node*> nodeMap;
+    HashMap<int, Node*> nodeMap;
     
-    //Used by decrease key to clean up the heap to be in the fib sequence
-    void consolidate(); // nasri
-    //Used by the consolidate function to make a node in the root list become a child
+    // Used by decrease key to clean up the heap to be in the fib sequence
+    void consolidate(); 
+    // Used by the consolidate function to make a node in the root list become a child
     void link(Node* y, Node* x); 
-    //Used by decrease key to remove a child and append it to the root list
+    // Used by decrease key to remove a child and append it to the root list
     void cut(Node* x, Node* y);
-    //Used by decrease key to propagate the cut upwards through the tree, recursively until a non-marked node is found or the root is reached.
+    // Used by decrease key to propagate the cut upwards through the tree, recursively until a non-marked node is found or the root is reached.
     void cascadingCut(Node* y); 
     void deleteAll(Node* node);
     void swap(Node*& x, Node*& y);
     void printTreeAux(Node* node, int level);
-};
 
+    public:
+    FibonacciHeap();
+    ~FibonacciHeap();
+
+    void insert(ValueType value); 
+    void merge(FibonacciHeap& other); 
+    bool isEmpty() const; 
+    ValueType extractMin(); 
+    void decreaseKey(ValueType oldValue, ValueType newValue); 
+    typename FibonacciHeap<ValueType>::NodePointer findNode(ValueType value);  
+    void deleteNode(ValueType value); // has to take ValueType not Node*
+    ValueType getMin() const; 
+    void print();
+};
 
 template <typename ValueType>
 FibonacciHeap<ValueType>::FibonacciHeap() {
@@ -88,7 +87,7 @@ void FibonacciHeap<ValueType>::insert(ValueType value) {
             minNode = x;
         }
     }
-    nodeMap[value] = x;
+    nodeMap.insertDouble(value.getId(), x);
     nodeCount++;
 }
 
@@ -97,7 +96,7 @@ ValueType FibonacciHeap<ValueType>::extractMin() {
     Node* z = minNode;
     if (!isEmpty()) {
         // Remove from the map
-        nodeMap.erase(z->value);
+        nodeMap.removeDouble(z->value.getId());
         while (z->child != nullptr) {
             // Add x to the root list of H
             cut(z->child, z); // x.p = nullptr, z.degree--, x.marked = false, insertNode(z->child), nodeCount++
@@ -123,7 +122,7 @@ template <typename ValueType>
 ValueType FibonacciHeap<ValueType>::getMin() const {
     if (minNode == nullptr) {
         cerr << "The heap is empty" << endl;
-        return; // Return default value if heap is empty
+        return ValueType(); // Return default value if heap is empty
     }
     return minNode->value;
 }
@@ -139,27 +138,23 @@ bool FibonacciHeap<ValueType>::isEmpty() const{
 }
 
 template <typename ValueType>
-void FibonacciHeap<ValueType>::decreaseKey(Node* node, ValueType newValue) { //should change Node with valType!
-    if (newValue > node->value) {
+void FibonacciHeap<ValueType>::decreaseKey(ValueType oldValue, ValueType newValue) {
+    if (newValue > oldValue) {
         cout << "New Value is greater than current" << endl;
         exit(0);
     }
-    //Remove the old value from the map
-    nodeMap.erase(node->value);
-
-    //Update the desired node with the decreased value
+    Node* node = findNode(oldValue);
+    nodeMap.removeDouble(node->value.getId());
     node->value = newValue;
-
-    //Add the new value to the map
-    nodeMap[newValue] = node;
-    //Get Parent
+    nodeMap.insertDouble(newValue.getId(), node);
+    // Get Parent
     Node* parent = node->parent;
-    //If new value is smaller than parent cut and mark parent
+    // If new value is smaller than parent cut and mark parent
     if (parent != nullptr && parent->value > node->value) {
         cut(node, parent);
         cascadingCut(parent);
     }
-    //Update min
+    // Update min
     if (node->value < minNode->value) {
         minNode = node;
     }
@@ -175,31 +170,31 @@ void FibonacciHeap<ValueType>::cut(Node* x, Node* y) {
         //Remove x from its sibilings
         x->right->left = x->left;
         x->left->right = x->right;
-        //Connect y child to any of the siblings
+        // Connect y child to any of the siblings
         if (y->child == x) {
             y->child = x->right;
         }
     }
     y->degree--;
-    //Add the node in the root list
+    // Add the node in the root list
     x->right = minNode;
     x->left = minNode->left;
     minNode->left->right = x;
     minNode->left = x;
-    //Remove its parent and unmark it
+    // Remove its parent and unmark it
     x->parent = nullptr;
     x->marked = false;
 }
 template <typename ValueType>
 void FibonacciHeap<ValueType>::cascadingCut(Node* y) {
     Node* z = y->parent;
-    //Only enters if y has parent because if y doesn't have a parent it is already in the root list
+    // Only enters if y has parent because if y doesn't have a parent it is already in the root list
     if (z != nullptr) {
-        //Mark true if unmarked because this function is always called after cutting
+        // Mark true if unmarked because this function is always called after cutting
         if (!y->marked) {
             y->marked = true;
         } else {
-            //If marked cut and recurse using the parent until until a non-marked node is found or the root is reached
+            // If marked cut and recurse using the parent until a non-marked node is found or the root is reached
             cut(y, z);
             cascadingCut(z);
         }
@@ -207,28 +202,23 @@ void FibonacciHeap<ValueType>::cascadingCut(Node* y) {
 }
 
 template <typename ValueType>
-typename FibonacciHeap<ValueType>::NodePointer findNode(ValueType value) {
-    // Use the unordered_map for O(1) lookup
-    auto val = nodeMap.find(value.getID());  
-    if (val != nodeMap.end()) {
-        return val->second;  
-    }
-    return nullptr; 
+typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::findNode(ValueType value) {
+    return nodeMap.searchDouble(value.getId());
 }
 
 template <typename ValueType>
 void FibonacciHeap<ValueType>::deleteNode(ValueType value) {
-    Node* node = findNode(value.getID());
+    Node* node = findNode(value);
     if (node != nullptr) {
-        decreaseKey(node, std::numeric_limits<ValueType>::min());
+        decreaseKey(node->value, std::numeric_limits<ValueType>::min());
         extractMin();
     }
 }
 
 template <typename ValueType>
 void FibonacciHeap<ValueType>::consolidate() {
-    // array size is log(n) base 1.618, which is the golden ration aka fibonacci ratio
-     int arraySize = static_cast<int>(log(nodeCount) / log(1.618)) + 1;
+    // array size is log(n) base 1.618, which is the golden ratio aka fibonacci ratio
+    int arraySize = static_cast<int>(log(nodeCount) / log(1.618)) + 1;
     Node** degreeTable = new Node*[arraySize];
     for (int i = 0; i < arraySize; ++i) {
         degreeTable[i] = nullptr;
@@ -328,7 +318,7 @@ void FibonacciHeap<ValueType>::printTreeAux(Node* node, int level) {
         cout << node->value;
         if (node->child) {
             cout << " -> {" << endl;
-            printTree(node->child, level + 1);
+            printTreeAux(node->child, level + 1);
             for (int i = 0; i < level; ++i) {
                 cout << "   ";
             }

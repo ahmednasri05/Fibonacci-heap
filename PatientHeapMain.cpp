@@ -3,7 +3,6 @@
 #include <string>
 #include "Fibonacci_Heap.h"
 #include "Patient.hpp"
-#include "Patient.cpp"
 
 using namespace std;
 
@@ -13,11 +12,11 @@ int main() {
 
     // Helper function to get the current time
     // Create some Patient objects
-    Patient patient1("Alice", 1, 25, 3, "Fractured arm");
-    Patient patient2("Bob", 2, 70, 5, "Heart issue");
-    Patient patient3("Charlie", 3, 5, 4, "High fever");
-    Patient patient4("Diana", 4, 50, 2, "Minor injury");
-    Patient patient5("Eve", 5, 90, 4, "Difficulty breathing");
+    Patient patient1("Alice", 12345, 25, 3, "Fractured arm");
+    Patient patient2("Bob", 23456, 70, 5, "Heart issue");
+    Patient patient3("Charlie", 34567, 5, 4, "High fever");
+    Patient patient4("Diana", 45678, 50, 2, "Minor injury");
+    Patient patient5("Eve", 59101, 90, 4, "Difficulty breathing");
     // Test the insert function
     cout << "Inserting patients into the Fibonacci Heap...\n";
     patientHeap.insert(patient1); //insert(ValueType value)
@@ -44,7 +43,7 @@ int main() {
     cout << "\nDecreasing the urgency score of patient Diana...\n"; // el paramters beta3eut el decrease key hatet8ayar
     auto node = patientHeap.findNode(patient4); // Find Diana's node
     if (node) {
-        patientHeap.decreaseKey(node, Patient("Diana", 4, 50, 1, "Minor injury")); // Lower urgency score
+        patientHeap.decreaseKey(Patient("Diana", 45678, 50, 2, "Minor injury"), Patient("Diana", 4, 50, 1, "Minor injury")); // Lower urgency score
         cout << "Updated heap after decreasing key:\n";
         patientHeap.print();
     } else {
@@ -60,9 +59,8 @@ int main() {
     // Test the merge function
     cout << "\nCreating a second heap and merging...\n";
     FibonacciHeap<Patient> secondHeap;
-    Patient patient6("Frank", 6, 30, 4, "Burns");
-    Patient patient7("Grace", 7, 80, 5, "Stroke");
-
+    Patient patient6("Frank", 67891, 30, 4, "Burns");
+    Patient patient7("Grace", 78910, 80, 5, "Stroke");
 
     secondHeap.insert(patient6);
     secondHeap.insert(patient7);

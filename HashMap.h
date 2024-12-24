@@ -3,7 +3,7 @@
 #include "Patient.cpp"
 using namespace std;
 
-const int TableSize = 11;
+const int TableSize = 30;
 
 // template <typename KeyType, typename ValueType>
 template <typename KeyType, typename ValueType>
@@ -11,8 +11,9 @@ class HashMap {
     private:
         struct Node {
             int key;
+            KeyType ID;
             ValueType value;
-            Node(int k = -1, ValueType val = ValueType()) : key(k), value(val) {};
+            Node(int k = -1, KeyType ID = KeyType(), ValueType val = ValueType()) : key(k), ID(ID), value(val) {};
         };
 
         Node* table;
@@ -28,35 +29,39 @@ class HashMap {
             return prime - (ID % prime);  // This ensures a non-zero step size
         }
 
-        // void resize() {
-        //     int oldCapacity = capacity;
-        //     capacity = 2 * capacity;
-        //     Node* oldTable = table;
-        //     table = new Node[capacity];
-        //     numberOfElements = 0;
+        void resize() {
+            int oldCapacity = capacity;
+            capacity = 2 * capacity;
+            Node* oldTable = table;
+            table = new Node[capacity];
+            numberOfElements = 0;
 
-        //     for (int i = 0; i < oldCapacity; i++) {
-        //         if (oldTable[i].key != -1 && oldTable[i].key != -2) {
-        //             HashMap<KeyType, ValueType>::insertDouble(oldTable[i].value);
-        //         }
-        //     }
-        //     delete[] oldTable;
-        // };
+            for (int i = 0; i < oldCapacity; i++) {
+                if (oldTable[i].key != -1 && oldTable[i].key != -2) {
+                    HashMap<KeyType, ValueType>::insertDouble(oldTable[i].ID, oldTable[i].value);
+                }
+            }
+            delete[] oldTable;
+        };
 
        
 
     public:
-        HashMap();
+        HashMap(int capacity = TableSize);
         ~HashMap();
-        void insertDouble(ValueType value);
-        void removeDouble(ValueType value);
-        ValueType searchDouble(ValueType value);
+        void insertDouble(KeyType ID, ValueType value);
+        void removeDouble(KeyType patientID);
+        ValueType searchDouble(KeyType patientID);
 };
 
  
 template <typename KeyType, typename ValueType>
-HashMap<KeyType, ValueType>::HashMap() : numberOfElements(0), capacity(TableSize) {
-        table = new Node[capacity];
+HashMap<KeyType, ValueType>::HashMap(int capacity): capacity(capacity), numberOfElements(0) {
+    table = new Node[capacity];
+    if (table == NULL) {
+        cout << "Error while initializing the map";
+        exit(0);
+    }
 }
 
 template <typename KeyType, typename ValueType>
@@ -64,19 +69,19 @@ HashMap<KeyType, ValueType>::~HashMap() {
     delete[] table;
 }
 template <typename KeyType, typename ValueType>
-void HashMap<KeyType, ValueType>::insertDouble(ValueType value) {
+void HashMap<KeyType, ValueType>::insertDouble(KeyType patientID, ValueType value) {
     if (numberOfElements >= 0.75 * capacity) {
-        // resize();
+        HashMap<KeyType, ValueType>::resize();
     }
-    int index = hash(value.getId());
-    int stepSize = hash2(value.getId());
+    int index = hash(patientID);
+    int stepSize = hash2(patientID);
     while (true) {
-        if (table[index].key == value.getId()) {
-            cout << "Patient with ID: " << value.getId() << " already exists." << endl;
+        if (table[index].ID == patientID) {
+            cout << "Patient with ID: " << patientID << " already exists." << endl;
             return;
         }
         if (table[index].key == -1 || table[index].key == -2) {
-            table[index] = Node(index, value);
+            table[index] = Node(index, patientID, value);
             numberOfElements++;
             return;
         }
@@ -86,17 +91,18 @@ void HashMap<KeyType, ValueType>::insertDouble(ValueType value) {
 }
 
 template <typename KeyType, typename ValueType>
-void HashMap<KeyType, ValueType>::removeDouble(ValueType value) {
-    int index = hash(value.getId());
-    int stepSize = hash2(value.getId());
+void HashMap<KeyType, ValueType>::removeDouble(KeyType patientID) {
+    int index = hash(patientID);
+    int stepSize = hash2(patientID);
     while (true) {
         if (table[index].key == -1) {
-            cout << "Patient with ID: " << value.getId() << " does NOT exist." << endl;
+            cout << "Patient with ID: " << patientID << " does NOT exist." << endl;
             return;
         }
-        if (table[index].key == value.getId()) {
+        if (table[index].ID == patientID) {
             table[index].key = -2;
-            table[index].value = nullptr;
+            table[index].ID = KeyType();
+            table[index].value = ValueType();
             numberOfElements--;
             return;
         }
@@ -105,15 +111,15 @@ void HashMap<KeyType, ValueType>::removeDouble(ValueType value) {
 }
 
 template <typename KeyType, typename ValueType>
-ValueType HashMap<KeyType, ValueType>::searchDouble(ValueType value) {
-    int index = hash(value.getId());
-    int stepSize = hash2(value.getId());
+ValueType HashMap<KeyType, ValueType>::searchDouble(KeyType patientID) {
+    int index = hash(patientID);
+    int stepSize = hash2(patientID);
     while (true) {
         if (table[index].key == -1) {
-            cout << "Patient with ID: " << value.getId() << " does NOT exist." << endl;
+            cout << "Patient with ID: " << patientID << " does NOT exist." << endl;
             return ValueType(); // Return default constructed ValueType
         }
-        if (table[index].key == value.getId()) {
+        if (table[index].ID == patientID) {
             return table[index].value;
         }
         index = (index + stepSize) % capacity;
