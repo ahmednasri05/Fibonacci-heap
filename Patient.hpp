@@ -8,6 +8,7 @@ using namespace std;
 
 class Patient {
 public:
+    Patient();
     Patient(const string& name, int id, int age, int UrgencyScore = 0 , string description = "");
     Patient(const Patient& other); // copy constructor
     const string& getName() const;

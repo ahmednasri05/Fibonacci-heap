@@ -1,7 +1,7 @@
 #include <iostream>
 #include "HashMap.h"
 #include "Patient.hpp"
-#include "Patient.cpp"
+
 using namespace std;
 
 int main() {

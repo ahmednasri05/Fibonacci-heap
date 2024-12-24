@@ -12,7 +12,7 @@ class HashMap {
         struct Node {
             int key;
             ValueType value;
-            Node(int k = -1, ValueType val = nullptr) : key(k), value(val) {};
+            Node(int k = -1, ValueType val = ValueType()) : key(k), value(val) {};
         };
 
         Node* table;
@@ -68,11 +68,11 @@ void HashMap<KeyType, ValueType>::insertDouble(ValueType value) {
     if (numberOfElements >= 0.75 * capacity) {
         // resize();
     }
-    int index = hash(value->getId());
-    int stepSize = hash2(value->getId());
+    int index = hash(value.getId());
+    int stepSize = hash2(value.getId());
     while (true) {
-        if (table[index].key == value->getId()) {
-            cout << "Patient with ID: " << value->getId() << " already exists." << endl;
+        if (table[index].key == value.getId()) {
+            cout << "Patient with ID: " << value.getId() << " already exists." << endl;
             return;
         }
         if (table[index].key == -1 || table[index].key == -2) {
@@ -87,14 +87,14 @@ void HashMap<KeyType, ValueType>::insertDouble(ValueType value) {
 
 template <typename KeyType, typename ValueType>
 void HashMap<KeyType, ValueType>::removeDouble(ValueType value) {
-    int index = hash(value->getId());
-    int stepSize = hash2(value->getId());
+    int index = hash(value.getId());
+    int stepSize = hash2(value.getId());
     while (true) {
         if (table[index].key == -1) {
-            cout << "Patient with ID: " << value->getId() << " does NOT exist." << endl;
+            cout << "Patient with ID: " << value.getId() << " does NOT exist." << endl;
             return;
         }
-        if (table[index].key == value->getId()) {
+        if (table[index].key == value.getId()) {
             table[index].key = -2;
             table[index].value = nullptr;
             numberOfElements--;
@@ -106,17 +106,17 @@ void HashMap<KeyType, ValueType>::removeDouble(ValueType value) {
 
 template <typename KeyType, typename ValueType>
 ValueType HashMap<KeyType, ValueType>::searchDouble(ValueType value) {
-    int index = hash(value->getId());
-    int stepSize = hash2(value->getId());
+    int index = hash(value.getId());
+    int stepSize = hash2(value.getId());
     while (true) {
         if (table[index].key == -1) {
-            cout << "Patient with ID: " << value->getId() << " does NOT exist." << endl;
-            return nullptr;
+            cout << "Patient with ID: " << value.getId() << " does NOT exist." << endl;
+            return ValueType(); // Return default constructed ValueType
         }
-        if (table[index].key == value->getId()) {
+        if (table[index].key == value.getId()) {
             return table[index].value;
         }
         index = (index + stepSize) % capacity;
     }
-    return nullptr; // Key not found
+    return ValueType(); // Key not found, return default constructed ValueType
 }

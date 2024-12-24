@@ -33,7 +33,6 @@ int main() {
     // Test the getMin function
     cout << "\nPatient with the highest priority (min in heap):\n";
     cout << patientHeap.getMin() << "\n";
-
     // Test the extractMin function
     cout << "\nExtracting the patient with the highest priority...\n";
     patientHeap.extractMin();
