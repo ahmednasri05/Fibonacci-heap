@@ -73,6 +73,7 @@ FibonacciHeap<ValueType>::~FibonacciHeap() {
 template <typename ValueType>
 void FibonacciHeap<ValueType>::insert(ValueType value) {
     Node* x = new Node(value);
+    // add the new node to the hashmap
     if (minNode == nullptr) {
         x->right = x;
         x->left = x;
@@ -208,7 +209,7 @@ void FibonacciHeap<ValueType>::cascadingCut(Node* y) {
 template <typename ValueType>
 typename FibonacciHeap<ValueType>::NodePointer findNode(ValueType value) {
     // Use the unordered_map for O(1) lookup
-    auto val = nodeMap.find(value);  
+    auto val = nodeMap.find(value.getID());  
     if (val != nodeMap.end()) {
         return val->second;  
     }
@@ -217,7 +218,7 @@ typename FibonacciHeap<ValueType>::NodePointer findNode(ValueType value) {
 
 template <typename ValueType>
 void FibonacciHeap<ValueType>::deleteNode(ValueType value) {
-    Node* node = findNode(value);
+    Node* node = findNode(value.getID());
     if (node != nullptr) {
         decreaseKey(node, std::numeric_limits<ValueType>::min());
         extractMin();
