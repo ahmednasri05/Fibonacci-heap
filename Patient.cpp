@@ -9,7 +9,7 @@ Patient::Patient() : name(""), id(0), age(0), UrgencyScore(0), description(""), 
     time_t now = time(0);
     checkInDate = *localtime(&now);
     priority = calculatePriority(); // Ensure priority is calculated
-}
+} 
 
 Patient::Patient(const string& name, int id, int age, int UrgencyScore, string description)
     : name(name), id(id), age(age), UrgencyScore(UrgencyScore), description(description) {

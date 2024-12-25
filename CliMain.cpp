@@ -4,7 +4,8 @@
 #include "TaskManager.cpp"
 using namespace std;
 
-void displayMenu() {
+void displayMenu()
+{
     cout << "\n=== Hospital Task Manager ===\n";
     cout << "1. Add a new patient\n";
     cout << "2. Process the next patient\n";
@@ -17,7 +18,8 @@ void displayMenu() {
     cout << "Enter your choice: ";
 }
 
-void handleAddPatient(TaskManager& tm) {
+void handleAddPatient(TaskManager &tm)
+{
     string name, description;
     int id, age, urgencyScore;
 
@@ -41,7 +43,8 @@ void handleAddPatient(TaskManager& tm) {
     tm.addPatient(name, id, age, urgencyScore, description);
 }
 
-void handleDecreaseKey(TaskManager& tm) {
+void handleDecreaseKey(TaskManager &tm)
+{
     int id, newUrgencyScore;
 
     cout << "\nEnter patient ID: ";
@@ -53,7 +56,8 @@ void handleDecreaseKey(TaskManager& tm) {
     tm.increaseUrgency(id, newUrgencyScore);
 }
 
-void handleDeletePatient(TaskManager& tm) {
+void handleDeletePatient(TaskManager &tm)
+{
     int id;
 
     cout << "\nEnter patient ID to delete: ";
@@ -62,7 +66,8 @@ void handleDeletePatient(TaskManager& tm) {
     tm.deletePatient(id);
 }
 
-void handleFindPatient(TaskManager& tm) {
+void handleFindPatient(TaskManager &tm)
+{
     int id;
 
     cout << "\nEnter patient ID to find: ";
@@ -71,41 +76,44 @@ void handleFindPatient(TaskManager& tm) {
     tm.findPatient(id);
 }
 
-int main() {
+int main()
+{
     TaskManager tm;
     int choice;
 
-    while (true) {
+    while (true)
+    {
         displayMenu();
         cin >> choice;
 
-        switch (choice) {
-            case 1:
-                handleAddPatient(tm);
-                break;
-            case 2:
-                tm.processNextPatient();
-                break;
-            case 3:
-                tm.viewTopPatient();
-                break;
-            case 4:
-                tm.listAllPatients();
-                break;
-            case 5:
-                handleFindPatient(tm);
-                break;
-            case 6:
-                handleDecreaseKey(tm);
-                break;
-            case 7:
-                handleDeletePatient(tm);
-                break;
-            case 8:
-                cout << "Exiting the application. Goodbye!\n";
-                return 0;
-            default:
-                cerr << "Invalid choice. Please try again.\n";
+        switch (choice)
+        {
+        case 1:
+            handleAddPatient(tm);
+            break;
+        case 2:
+            tm.processNextPatient();
+            break;
+        case 3:
+            tm.viewTopPatient();
+            break;
+        case 4:
+            tm.listAllPatients();
+            break;
+        case 5:
+            handleFindPatient(tm);
+            break;
+        case 6:
+            handleDecreaseKey(tm);
+            break;
+        case 7:
+            handleDeletePatient(tm);
+            break;
+        case 8:
+            cout << "Exiting the application. Goodbye!\n";
+            return 0;
+        default:
+            cerr << "Invalid choice. Please try again.\n";
         }
     }
 }

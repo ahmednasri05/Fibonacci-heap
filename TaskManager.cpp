@@ -1,12 +1,15 @@
 #include "TaskManager.hpp"
 
-bool TaskManager::patientExists(int id) const {
-    Patient* result = patientMap.searchDouble(id);
+bool TaskManager::patientExists(int id) const
+{
+    Patient *result = patientMap.searchDouble(id);
     return result != nullptr; // Check if the result is not equal to a default-constructed Patient
 }
 
-void TaskManager::addPatient(const string& name, int id, int age, int urgencyScore, const string& description) {
-    if (patientExists(id)) {
+void TaskManager::addPatient(const string &name, int id, int age, int urgencyScore, const string &description)
+{
+    if (patientExists(id))
+    {
         cerr << "Patient with ID " << id << " already exists.\n";
         return;
     }
@@ -16,26 +19,34 @@ void TaskManager::addPatient(const string& name, int id, int age, int urgencySco
     cout << "Patient added successfully!\n";
 }
 
-void TaskManager::processNextPatient() {
-    if (patientHeap.isEmpty()) {
+void TaskManager::processNextPatient()
+{
+    if (patientHeap.isEmpty())
+    {
         cerr << "No patients in the queue.\n";
         return;
     }
     Patient nextPatient = patientHeap.extractMin();
     patientMap.removeDouble(nextPatient.getId()); // Remove the patient from the map
-    cout << "Processing next patient:\n" << nextPatient << "\n";
+    cout << "Processing next patient:\n"
+         << nextPatient << "\n";
 }
 
-void TaskManager::viewTopPatient() {
-    if (patientHeap.isEmpty()) {
+void TaskManager::viewTopPatient()
+{
+    if (patientHeap.isEmpty())
+    {
         cerr << "No patients in the queue.\n";
         return;
     }
-    cout << "Next patient to be treated:\n" << patientHeap.getMin() << "\n";
+    cout << "Next patient to be treated:\n"
+         << patientHeap.getMin() << "\n";
 }
 
-void TaskManager::listAllPatients() {
-    if (patientHeap.isEmpty()) {
+void TaskManager::listAllPatients()
+{
+    if (patientHeap.isEmpty())
+    {
         cerr << "No patients in the queue.\n";
         return;
     }
@@ -43,39 +54,47 @@ void TaskManager::listAllPatients() {
     patientHeap.print();
 }
 
-void TaskManager::findPatient(int id) const {
-    if (!patientExists(id)) {
+void TaskManager::findPatient(int id) const
+{
+    if (!patientExists(id))
+    {
         cerr << "Patient with ID " << id << " not found.\n";
         return;
     }
-    Patient* patient = patientMap.searchDouble(id);
-    cout << "Patient found:\n" << *patient << "\n";
+    Patient *patient = patientMap.searchDouble(id);
+    cout << "Patient found:\n"
+         << *patient << "\n";
 }
 
-void TaskManager::deletePatient(int id) {
-    if (!patientExists(id)) {
+void TaskManager::deletePatient(int id)
+{
+    if (!patientExists(id))
+    {
         cerr << "Patient with ID " << id << " not found.\n";
         return;
     }
-    Patient* patient = patientMap.searchDouble(id);
+    Patient *patient = patientMap.searchDouble(id);
     patientMap.removeDouble(patient->getId()); // Remove the mapping
     cout << "Patient with ID " << id << " deleted successfully.\n";
 }
 
-void TaskManager::increaseUrgency(int id, int newUrgencyScore) {
-    if (!patientExists(id)) {
+void TaskManager::increaseUrgency(int id, int newUrgencyScore)
+{
+    if (!patientExists(id))
+    {
         cerr << "Patient with ID " << id << " not found.\n";
         return;
     }
-    Patient* updatedPatient = patientMap.searchDouble(id);
+    Patient *updatedPatient = patientMap.searchDouble(id);
 
-    if (newUrgencyScore <= updatedPatient->getUrgencyScore()) {
+    if (newUrgencyScore <= updatedPatient->getUrgencyScore())
+    {
         cerr << "New urgency score must be higher than the current urgency score.\n";
         return;
     }
     updatedPatient->updateUrgencyScore(newUrgencyScore); // Update the urgency score
     patientMap.insertDouble(updatedPatient->getId(), updatedPatient);
-    cout << "Urgency score for patient ID " << id << " increased successfully.\n";
+    cout << "Urgency score for patient ID " << id << " " << updatedPatient->getUrgencyScore() << " increased successfully.\n";
 }
 // int main() {
 //     TaskManager tm;
