@@ -20,11 +20,11 @@ class HashMap {
         int numberOfElements;
         int capacity;
 
-        int hash(int ID) {
+        int hash(int ID) const {
             return ID % capacity;
         }
 
-        int hash2(int ID) {
+        int hash2(int ID) const {
             int prime = 7;  // A small prime number for step size
             return prime - (ID % prime);  // This ensures a non-zero step size
         }
@@ -51,7 +51,7 @@ class HashMap {
         ~HashMap();
         void insertDouble(KeyType ID, ValueType value);
         void removeDouble(KeyType patientID);
-        ValueType searchDouble(KeyType patientID);
+        ValueType searchDouble(KeyType patientID) const;
 };
 
  
@@ -111,7 +111,7 @@ void HashMap<KeyType, ValueType>::removeDouble(KeyType patientID) {
 }
 
 template <typename KeyType, typename ValueType>
-ValueType HashMap<KeyType, ValueType>::searchDouble(KeyType patientID) {
+ValueType HashMap<KeyType, ValueType>::searchDouble(KeyType patientID) const {
     int index = hash(patientID);
     int stepSize = hash2(patientID);
     while (true) {
