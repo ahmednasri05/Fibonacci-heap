@@ -7,6 +7,15 @@
 using namespace std;
 
 class Patient {
+private:
+    string name;
+    int priority;
+    int id;
+    int age;
+    int UrgencyScore;
+    tm checkInDate;
+    string description;
+   
 public:
     Patient();
     Patient(const string& name, int id, int age, int UrgencyScore = 0 , string description = "");
@@ -21,19 +30,12 @@ public:
     void updateUrgencyScore(int newUrgencyScore);
     const string& getDescription() const;
     void setDescription(const string& newDescription);
+     int calculatePriority() const;
     friend ostream& operator<<(ostream& os, const Patient& patient);
     bool operator>(const Patient& other) const;
     bool operator<(const Patient& other) const;
 
-private:
-    string name;
-    int id;
-    int age;
-    int UrgencyScore;
-    tm checkInDate;
-    string description;
-    int priority;
-    int calculatePriority() const;
+
 };
 
 #endif // PATIENT_HPP

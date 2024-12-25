@@ -6,73 +6,70 @@
 
 using namespace std;
 
-int main() {
-    // Create a Fibonacci Heap for Patient objects
-    FibonacciHeap<Patient> patientHeap;
+// int main() {
+//     // Create a Fibonacci Heap for Patient objects
+//     FibonacciHeap<Patient> patientHeap;
 
-    // Helper function to get the current time
-    // Create some Patient objects
-    Patient patient1("Alice", 12345, 25, 3, "Fractured arm");
-    Patient patient2("Bob", 23456, 70, 5, "Heart issue");
-    Patient patient3("Charlie", 34567, 5, 4, "High fever");
-    Patient patient4("Diana", 45678, 50, 2, "Minor injury");
-    Patient patient5("Eve", 59101, 90, 4, "Difficulty breathing");
-    // Test the insert function
-    cout << patient1.getPriority() << endl;
-    cout << "Inserting patients into the Fibonacci Heap...\n";
-    patientHeap.insert(patient1); //insert(ValueType value)
-    patientHeap.insert(patient2);
-    patientHeap.insert(patient3);
-    patientHeap.insert(patient4);
-    patientHeap.insert(patient5);
+//     // Create some Patient objects
+//     Patient patient1("Alice", 12345, 25, 3, "Fractured arm");
+//     Patient patient2("Bob", 23456, 70, 0, "Heart issue");
+//     Patient patient3("Charlie", 34567, 5, 3, "High fever");
+//     Patient patient4("Diana", 45678, 50, 0, "Minor injury");
+//     Patient patient5("Eve", 59101, 90, 5, "Difficulty breathing");
 
-    // Test the print function to display the heap structure
-    cout << "Heap after inserting patients:\n";
-    patientHeap.print();
+//     // Print initial priorities
+//     cout << "Initial priorities:\n";
+//     cout << "Patient 1: " << patient1.getPriority() << endl;
+//     cout << "Patient 2: " << patient2.getPriority() << endl;
+//     cout << "Patient 3: " << patient3.getPriority() << endl;
+//     cout << "Patient 4: " << patient4.getPriority() << endl;
+//     cout << "Patient 5: " << patient5.getPriority() << endl;
 
-    // Test the getMin function
-    cout << "\nPatient with the highest priority (min in heap):\n";
-    cout << patientHeap.getMin() << "\n";
-    // Test the extractMin function
-    cout << "\nExtracting the patient with the highest priority...\n";
-    patientHeap.extractMin();
-    // Test the print function after extraction
-    cout << "\nHeap after extracting the highest priority patient:\n";
-    patientHeap.print();
+//     // Test the insert function
+//     cout << "Inserting patients into the Fibonacci Heap...\n";
+//     patientHeap.insert(patient1);
+//     patientHeap.insert(patient2);
+//     patientHeap.insert(patient3);
+//     patientHeap.insert(patient4);
+//     patientHeap.insert(patient5);
 
-    // Test the decreaseKey function (updating urgency score of a patient)
+//     // Print priorities after insertion
+//     cout << "Priorities after insertion:\n";
+//     // Test the getMin function
+//     cout << "\nPatient with the highest priority (min in heap):\n";
+//     cout << patientHeap.getMin() << "\n";
+
+//     // Test the extractMin function
+//     cout << "\nExtracting the patient with the highest priority...\n";
+//     patientHeap.extractMin();
+
+//     // Print priorities after extraction
+//     cout << "Priorities after extracting the highest priority patient:\n";
+//     cout<< patientHeap.getMin();
+
+//     // Test the decreaseKey function
+//     cout << "\nDecreasing the urgency score of Patient 4...\n";
+//     patientHeap.decreaseKey(patient4, Patient("Diana", 45678, 50, 5, "Minor injury"));
+//     // Test the deleteNode function
+//     cout << "\nDeleting Patient 3...\n";
+//     patientHeap.deleteNode(patient3);
+//     // Print priorities after deletion
+//     cout << "Priorities after deleting Patient 3:\n";
+//     patientHeap.print();
+
+//     // Test the merge function
+//     cout << "\nMerging with another Fibonacci Heap...\n";
+//     FibonacciHeap<Patient> anotherHeap;
+//     Patient patient6("Frank", 67890, 40, 3, "Back pain");
+//     Patient patient7("Grace", 78901, 60, 2, "Headache");
+//         anotherHeap.insert(patient6);
+//     anotherHeap.insert(patient7);
+//     patientHeap.merge(anotherHeap);
+
+//     // Print priorities after merging
+//     cout << "Priorities after merging with another heap:\n";
+//     patientHeap.print();
     
 
-    // Test the deleteNode function
-    cout << "\nDeleting patient Eve from the heap...\n";
-    patientHeap.deleteNode(patient5); // Delete Eve
-    cout << "Heap after deleting patient Eve:\n";
-    patientHeap.print();
-
-    // Test the merge function
-    cout << "\nCreating a second heap and merging...\n";
-    FibonacciHeap<Patient> secondHeap;
-    Patient patient6("Frank", 67891, 30, 4, "Burns");
-    Patient patient7("Grace", 78910, 80, 5, "Stroke");
-
-    secondHeap.insert(patient6);
-    secondHeap.insert(patient7);
-
-    cout << "Second heap:\n";
-    secondHeap.print();
-
-    cout << "Merging the second heap into the main heap...\n";
-    patientHeap.merge(secondHeap);
-
-    cout << "Heap after merging:\n";
-    patientHeap.print();
-
-    // Final cleanup
-    cout << "\nClearing all patients from the heap...\n";
-    while (!patientHeap.isEmpty()) {
-        cout << "Extracted: " << patientHeap.extractMin() << "\n";
-    }
-    cout << "Heap is now empty.\n";
-
-    return 0;
-}
+//     return 0;
+// }

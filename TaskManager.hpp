@@ -4,7 +4,6 @@
 #include <string>
 #include "Fibonacci_Heap.h"
 #include "Patient.hpp"
-#include "Patient.cpp"
 #include <unordered_map>
 
 using namespace std;
@@ -22,5 +21,5 @@ public:
     void listAllPatients();
     void findPatient(int id) const;
     void deletePatient(int id);
-    void decreaseKey(int id, int newUrgencyScore);
+    void increaseUrgency(int id, int newUrgencyScore);
 };

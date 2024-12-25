@@ -47,7 +47,7 @@ struct Node {
     FibonacciHeap();
     ~FibonacciHeap();
 
-    void insert(ValueType value); 
+    void insert(ValueType& value); 
     void merge(FibonacciHeap& other); 
     bool isEmpty() const; 
     ValueType extractMin(); 
@@ -70,8 +70,9 @@ FibonacciHeap<ValueType>::~FibonacciHeap() {
 }
 
 template <typename ValueType>
-void FibonacciHeap<ValueType>::insert(ValueType value) {
+void FibonacciHeap<ValueType>::insert(ValueType& value) {
     Node* x = new Node(value);
+    //x->value.setPriority(value.getPriority());
     // add the new node to the hashmap
     if (minNode == nullptr) {
         x->right = x;
@@ -82,10 +83,13 @@ void FibonacciHeap<ValueType>::insert(ValueType value) {
         x->left = minNode->left;
         minNode->left->right = x;
         minNode->left = x;
+    //  cout << "Get pri " << value.getPriority() << endl;
+    //  cout << "Inserting Patient ID: " << x->value.getId() << ", Priority: " << x->value.getPriority() <<"urgency: "<< x->value.getUrgencyScore() << endl;
+if (x->value < minNode->value) {
+    minNode = x;
+     //cout << "New minNode set to Patient ID: " << minNode->value.getId() << ", Priority: " << minNode->value.getPriority() << endl;
+}
 
-        if (x->value < minNode->value) {
-            minNode = x;
-        }
     }
     nodeMap.insertDouble(value.getId(), x);
     nodeCount++;
@@ -121,17 +125,40 @@ ValueType FibonacciHeap<ValueType>::extractMin() {
 template <typename ValueType>
 ValueType FibonacciHeap<ValueType>::getMin() const {
     if (minNode == nullptr) {
-        cerr << "The heap is empty" << endl;
-        return ValueType(); // Return default value if heap is empty
-    }
-    return minNode->value;
+    cerr << "Heap is empty when calling getMin." << endl;
+} else {
+    cout << "Returning minNode Patient ID: " << minNode->value.getId() << ", Priority: " << minNode->value.getPriority() << endl;
+}
+return minNode->value;
+
 }
 
 template <typename ValueType>
 void FibonacciHeap<ValueType>::merge(FibonacciHeap& other) {
-    // Empty implementation
-}
+    //If other heap is empty simply do nothing
+    if(!other.isEmpty()){
+   if(isEmpty()){
+    //if my heap is empty 
+    minNode=other.minNode;
+    nodeCount=other.nodeCount;
+   }else{
+    // merge the root lists
+    minNode->left->right=other.minNode->right;
+    other.minNode->right->left=minNode->left;
+     other.minNode->right=minNode;
+    minNode->left=other.minNode; 
+    nodeCount+=other.nodeCount;
+    // Update the minNode to the smaller of the two
+            if (other.minNode->value < minNode->value) {
+                minNode = other.minNode;
+            }
+   }
+   // Clear the other heap
+   other.minNode=nullptr;   
+   other.nodeCount=0;
+   }
 
+    }
 template <typename ValueType>
 bool FibonacciHeap<ValueType>::isEmpty() const{
     return minNode == nullptr;

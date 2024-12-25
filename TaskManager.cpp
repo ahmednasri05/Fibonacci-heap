@@ -1,4 +1,5 @@
 #include "TaskManager.hpp"
+
 bool TaskManager::patientExists(int id) const {
     return patientMap.find(id) != patientMap.end();
 }
@@ -61,7 +62,7 @@ void TaskManager::deletePatient(int id) {
     cout << "Patient with ID " << id << " deleted successfully.\n";
 }
 
-void TaskManager::decreaseKey(int id, int newUrgencyScore) {
+void TaskManager::increaseUrgency(int id, int newUrgencyScore) {
     if (!patientExists(id)) {
         cerr << "Patient with ID " << id << " not found.\n";
         return;
@@ -69,49 +70,50 @@ void TaskManager::decreaseKey(int id, int newUrgencyScore) {
     auto it = patientMap.find(id);
 
     Patient updatedPatient = it->second; // deep copy using copy constructor
-    if (newUrgencyScore >= updatedPatient.getUrgencyScore()) {
-        cerr << "New urgency score must be lower than the current urgency score.\n";
+    if (newUrgencyScore <= updatedPatient.getUrgencyScore()) {
+        cerr << "New urgency score must be higher than the current urgency score.\n";
         return;
     }
     // Add the updated patient entry
     updatedPatient.updateUrgencyScore(newUrgencyScore); // Update the urgency score
-    //patientHeap.decreaseKey(it->second, updatedPatient); // Perform decreaseKey on the heap
+    //patientHeap.increaseKey(it->second, updatedPatient); // Perform increaseKey on the heap
     patientMap[updatedPatient.getId()] = updatedPatient;
-    cout << "Urgency score for patient ID " << id << " decreased successfully.\n";
+    cout << "Urgency score for patient ID " << id << " increased successfully.\n";
 }
 int main() {
     TaskManager tm;
     // Add patients
-    tm.addPatient("John Doe", 10001, 30, 5, "Flu");
+    tm.addPatient("John Doe", 10001, 90, 5, "Flu");
     tm.addPatient("Jane Smith", 10002, 25, 3, "Cold");
     tm.addPatient("Alice Johnson", 10003, 40, 4, "Broken leg");
     tm.addPatient("Bob Brown", 10004, 50, 2, "Heart attack");
     tm.addPatient("Eve Davis", 10005, 60, 1, "Stroke");
     // List all patients
+    cout << "Listing all patients:\n";
     tm.listAllPatients();
 
-    // View top patient
+    cout << "\nViewing top patient:\n";
     tm.viewTopPatient();
 
-    // Process next patient
+    cout << "\nProcessing next patient:\n";
     tm.processNextPatient();
 
-    // List all patients after processing one
+    cout << "\nListing all patients after processing one:\n";
     tm.listAllPatients();
 
-    // Find a specific patient
-    tm.findPatient(10001);
+    cout << "\nFinding a specific patient with ID 10001:\n";
+    tm.findPatient(10002);
 
-    // Decrease urgency score of a patient
-    tm.decreaseKey(10002, 1);
+    cout << "\nIncreasing urgency score of patient with ID 10002:\n";
+    tm.increaseUrgency(10002, 1);
 
-    // View top patient after decreasing urgency score
+    cout << "\nViewing top patient after increasing urgency score:\n";
     tm.viewTopPatient();
 
-    // Delete a patient
+    cout << "\nDeleting patient with ID 10003:\n";
     tm.deletePatient(10003);
 
-    // List all patients after deletion
+    cout << "\nListing all patients after deletion:\n";
     tm.listAllPatients();
 
     return 0;

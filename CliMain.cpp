@@ -50,7 +50,7 @@ void handleDecreaseKey(TaskManager& tm) {
     cout << "Enter new urgency score (lower than the current): ";
     cin >> newUrgencyScore;
 
-    tm.decreaseKey(id, newUrgencyScore);
+    tm.increaseUrgency(id, newUrgencyScore);
 }
 
 void handleDeletePatient(TaskManager& tm) {
