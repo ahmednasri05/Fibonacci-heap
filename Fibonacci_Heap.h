@@ -209,10 +209,13 @@ typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::findNod
 template <typename ValueType>
 void FibonacciHeap<ValueType>::deleteNode(ValueType value) {
     Node* node = findNode(value);
+    ValueType newValue = value;
+    newValue.setPriority(-11);
     if (node != nullptr) {
-        decreaseKey(node->value, std::numeric_limits<ValueType>::min());
+        decreaseKey(node->value, newValue);
         extractMin();
     }
+    nodeCount--;
 }
 
 template <typename ValueType>

@@ -30,6 +30,7 @@ Patient::Patient(const string& name, int id, int age, int UrgencyScore, string d
     }
     this->UrgencyScore = UrgencyScore;
     this->description = description;
+    this->priority = calculatePriority() *-1;
 
     time_t now = time(0);
     checkInDate = *localtime(&now);
@@ -58,7 +59,7 @@ int Patient::calculatePriority() const {
     double CheckInHours = checkInDate.tm_hour + (checkInDate.tm_min / 60.0);
     double maxHours = 23.59; // Maximum wait time for normalization
     // if the time is small aka the patient came early, the factor will be higher
-    double checkInTimeFactor =  (maxHours - CheckInHours) / maxHours * 10;
+    double checkInTimeFactor = max( 0.0 , (maxHours - CheckInHours) / maxHours * 10);
 
         // Calculate raw priority
     double rawPriority = (w1 * urgencyFactor) + (w2 * ageFactor) + (w3 * checkInTimeFactor);
@@ -81,6 +82,13 @@ int Patient::getAge() const {
 int Patient::getUrgencyScore() const {
     return UrgencyScore;
 }
+void Patient::setPriority(int newPriority) {
+    if (newPriority < -11 || newPriority > 1) {
+        cerr << "Priority must be between -11 and 1." << endl;
+        return;
+    }
+    priority = newPriority;
+}
 
 const string Patient::getCheckInDate() const {
     char buffer[80];
@@ -89,7 +97,7 @@ const string Patient::getCheckInDate() const {
 }
 
 int Patient::getPriority() const {
-    return this-> calculatePriority(); // Placeholder
+    return this->priority; // Placeholder
 }
 
 void Patient::updateUrgencyScore(int newUrgencyScore) {
@@ -116,10 +124,10 @@ ostream& operator<<(ostream& os, const Patient& patient) {
     return os;
 }
 bool Patient::operator>(const Patient& other) const {
-    return this->calculatePriority() > other.calculatePriority();
+    return this->priority > other.priority;
 }
 bool Patient::operator<(const Patient& other) const {
-    return this->calculatePriority() < other.calculatePriority();
+    return this->priority < other.priority;
 }
 
 // int main() {
@@ -154,6 +162,7 @@ bool Patient::operator<(const Patient& other) const {
 //     patient5.updateUrgencyScore(4);
 //     cout << "Patient 5 after update:" << endl;
 //     cout << patient5 << endl;
+//     patient5.setPriority(1);
 //     cout << "Priority: " << patient5.getPriority() << endl;
 
 //     return 0;

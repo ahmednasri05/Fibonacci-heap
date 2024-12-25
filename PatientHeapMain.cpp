@@ -18,6 +18,7 @@ int main() {
     Patient patient4("Diana", 45678, 50, 2, "Minor injury");
     Patient patient5("Eve", 59101, 90, 4, "Difficulty breathing");
     // Test the insert function
+    cout << patient1.getPriority() << endl;
     cout << "Inserting patients into the Fibonacci Heap...\n";
     patientHeap.insert(patient1); //insert(ValueType value)
     patientHeap.insert(patient2);
@@ -40,15 +41,7 @@ int main() {
     patientHeap.print();
 
     // Test the decreaseKey function (updating urgency score of a patient)
-    cout << "\nDecreasing the urgency score of patient Diana...\n"; // el paramters beta3eut el decrease key hatet8ayar
-    auto node = patientHeap.findNode(patient4); // Find Diana's node
-    if (node) {
-        patientHeap.decreaseKey(Patient("Diana", 45678, 50, 2, "Minor injury"), Patient("Diana", 4, 50, 1, "Minor injury")); // Lower urgency score
-        cout << "Updated heap after decreasing key:\n";
-        patientHeap.print();
-    } else {
-        cout << "Patient Diana not found in the heap.\n";
-    }
+    
 
     // Test the deleteNode function
     cout << "\nDeleting patient Eve from the heap...\n";

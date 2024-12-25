@@ -14,9 +14,10 @@ public:
     const string& getName() const;
     int getId() const;
     int getAge() const;
+    void setPriority(int newPriority);
+    int getPriority() const ;
     int getUrgencyScore() const;
     const string getCheckInDate() const;
-    int getPriority() const ;
     void updateUrgencyScore(int newUrgencyScore);
     const string& getDescription() const;
     void setDescription(const string& newDescription);
@@ -31,6 +32,7 @@ private:
     int UrgencyScore;
     tm checkInDate;
     string description;
+    int priority;
     int calculatePriority() const;
 };
 
