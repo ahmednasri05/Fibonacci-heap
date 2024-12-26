@@ -1,7 +1,7 @@
 #include <iostream>
 #include "HashMap.h"
 #include "Patient.hpp"
-
+#include "Patient.cpp"
 using namespace std;
 
 int main() {
@@ -12,7 +12,8 @@ int main() {
     patientHashMap.insertDouble(patient1->getId(), patient1);
     Patient* result = patientHashMap.searchDouble(12345);
     cout << "Test case 1: " << (result != nullptr ? "Passed" : "Failed") << endl;
-
+    cout << "FOCUS " << result->getName() << endl;
+    cout << "FOCUS " << result->getId() << endl;
     // Test case 2: Insert multiple patients and search for them
     Patient* patient2 = new Patient("Jane Doe", 54321, 45, 2, "Cough and cold");
     Patient* patient3 = new Patient("Alice Smith", 67890, 70, 4, "High fever");

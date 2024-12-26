@@ -1,6 +1,7 @@
+#pragma once
 #include <iostream>
-#include "Patient.hpp"
-#include "Patient.cpp"
+// #include "Patient.hpp"
+// #include "Patient.cpp"
 using namespace std;
 
 const int TableSize = 30;

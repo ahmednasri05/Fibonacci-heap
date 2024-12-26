@@ -2,162 +2,61 @@ digraph FibonacciHeap {
     graph [rankdir=TB];
     node [shape=plaintext];
     MinPointer [shape=plaintext, label="<Minimum Node>", fontcolor=red];
-    Node0x106af00 [label=<
+    Node0xfe18a0 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Charlie</td></tr>
-            <tr><td><b>ID:</b></td><td>34567</td></tr>
-            <tr><td><b>Priority:</b></td><td>-8</td></tr>
-            <tr><td><b>Description:</b></td><td>High fever</td></tr>
-        </table>
-    >];
-    MinPointer -> Node0x106af00 [color=red, penwidth=2];
-    Node0x106af00 -> Node0x1061890 [label="child", color=blue];
-    Node0x1061890 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Alice</td></tr>
-            <tr><td><b>ID:</b></td><td>12345</td></tr>
-            <tr><td><b>Priority:</b></td><td>-6</td></tr>
-            <tr><td><b>Description:</b></td><td>Fractured arm</td></tr>
-        </table>
-    >];
-    Node0x1061890 -> Node0x10604b0 [label="right", color=green, constraint=false];
-    Node0x1061890 -> Node0x106b120 [label="left", color=orange, constraint=false];
-    Node0x10604b0 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Bob</td></tr>
-            <tr><td><b>ID:</b></td><td>23456</td></tr>
-            <tr><td><b>Priority:</b></td><td>-6</td></tr>
-            <tr><td><b>Description:</b></td><td>Heart issue</td></tr>
-        </table>
-    >];
-    Node0x10604b0 -> Node0x106af88 [label="child", color=blue];
-    Node0x106af88 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Diana</td></tr>
-            <tr><td><b>ID:</b></td><td>45678</td></tr>
-            <tr><td><b>Priority:</b></td><td>-4</td></tr>
-            <tr><td><b>Description:</b></td><td>Minor injury</td></tr>
-        </table>
-    >];
-    Node0x10604b0 -> Node0x106b120 [label="right", color=green, constraint=false];
-    Node0x10604b0 -> Node0x1061890 [label="left", color=orange, constraint=false];
-    Node0x106b120 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Grace</td></tr>
-            <tr><td><b>ID:</b></td><td>78901</td></tr>
-            <tr><td><b>Priority:</b></td><td>-7</td></tr>
-            <tr><td><b>Description:</b></td><td>Headache</td></tr>
-        </table>
-    >];
-    Node0x106b120 -> Node0x106b098 [label="child", color=blue];
-    Node0x106b098 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Frank</td></tr>
-            <tr><td><b>ID:</b></td><td>67890</td></tr>
-            <tr><td><b>Priority:</b></td><td>-6</td></tr>
-            <tr><td><b>Description:</b></td><td>Back pain</td></tr>
-        </table>
-    >];
-    Node0x106b098 -> Node0x106b230 [label="right", color=green, constraint=false];
-    Node0x106b098 -> Node0x106b230 [label="left", color=orange, constraint=false];
-    Node0x106b230 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Ivy</td></tr>
-            <tr><td><b>ID:</b></td><td>90123</td></tr>
-            <tr><td><b>Priority:</b></td><td>-6</td></tr>
-            <tr><td><b>Description:</b></td><td>Stomach ache</td></tr>
-        </table>
-    >];
-    Node0x106b230 -> Node0x106b1a8 [label="child", color=blue];
-    Node0x106b1a8 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Hank</td></tr>
-            <tr><td><b>ID:</b></td><td>89012</td></tr>
-            <tr><td><b>Priority:</b></td><td>-4</td></tr>
-            <tr><td><b>Description:</b></td><td>Sprained ankle</td></tr>
-        </table>
-    >];
-    Node0x106b230 -> Node0x106b098 [label="right", color=green, constraint=false];
-    Node0x106b230 -> Node0x106b098 [label="left", color=orange, constraint=false];
-    Node0x106b120 -> Node0x1061890 [label="right", color=green, constraint=false];
-    Node0x106b120 -> Node0x10604b0 [label="left", color=orange, constraint=false];
-    Node0x106af00 -> Node0x106b2b8 [label="right", color=green, constraint=false];
-    Node0x106af00 -> Node0x106b4d8 [label="left", color=orange, constraint=false];
-    Node0x106b2b8 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Jack</td></tr>
-            <tr><td><b>ID:</b></td><td>12346</td></tr>
-            <tr><td><b>Priority:</b></td><td>-7</td></tr>
+            <tr><td><b>Name:</b></td><td>John Doe</td></tr>
+            <tr><td><b>ID:</b></td><td>10001</td></tr>
+            <tr><td><b>Priority:</b></td><td>-9</td></tr>
             <tr><td><b>Description:</b></td><td>Flu</td></tr>
         </table>
     >];
-    Node0x106b2b8 -> Node0x106b340 [label="child", color=blue];
-    Node0x106b340 [label=<
+    MinPointer -> Node0xfe18a0 [color=red, penwidth=2];
+    Node0xfe18a0 -> Node0xfe0520 [label="right", color=green, constraint=false];
+    Node0xfe18a0 -> Node0xfeb2d0 [label="left", color=orange, constraint=false];
+    Node0xfe0520 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Karen</td></tr>
-            <tr><td><b>ID:</b></td><td>23457</td></tr>
+            <tr><td><b>Name:</b></td><td>Jane Smith</td></tr>
+            <tr><td><b>ID:</b></td><td>10002</td></tr>
+            <tr><td><b>Priority:</b></td><td>-7</td></tr>
+            <tr><td><b>Description:</b></td><td>Cold</td></tr>
+        </table>
+    >];
+    Node0xfe0520 -> Node0xfeb0e0 [label="right", color=green, constraint=false];
+    Node0xfe0520 -> Node0xfe18a0 [label="left", color=orange, constraint=false];
+    Node0xfeb0e0 [label=<
+        <table border="1" cellborder="0" cellspacing="0">
+            <tr><td colspan="2"><b>Node</b></td></tr>
+            <tr><td><b>Name:</b></td><td>Alice Johnson</td></tr>
+            <tr><td><b>ID:</b></td><td>10003</td></tr>
             <tr><td><b>Priority:</b></td><td>-6</td></tr>
             <tr><td><b>Description:</b></td><td>Broken leg</td></tr>
         </table>
     >];
-    Node0x106b340 -> Node0x106b3c8 [label="right", color=green, constraint=false];
-    Node0x106b340 -> Node0x106b3c8 [label="left", color=orange, constraint=false];
-    Node0x106b3c8 [label=<
+    Node0xfeb0e0 -> Node0xfeb1d8 [label="right", color=green, constraint=false];
+    Node0xfeb0e0 -> Node0xfe0520 [label="left", color=orange, constraint=false];
+    Node0xfeb1d8 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Leo</td></tr>
-            <tr><td><b>ID:</b></td><td>34568</td></tr>
-            <tr><td><b>Priority:</b></td><td>-6</td></tr>
-            <tr><td><b>Description:</b></td><td>Ear infection</td></tr>
+            <tr><td><b>Name:</b></td><td>Bob Brown</td></tr>
+            <tr><td><b>ID:</b></td><td>10004</td></tr>
+            <tr><td><b>Priority:</b></td><td>-5</td></tr>
+            <tr><td><b>Description:</b></td><td>Heart attack</td></tr>
         </table>
     >];
-    Node0x106b3c8 -> Node0x106b450 [label="child", color=blue];
-    Node0x106b450 [label=<
+    Node0xfeb1d8 -> Node0xfeb2d0 [label="right", color=green, constraint=false];
+    Node0xfeb1d8 -> Node0xfeb0e0 [label="left", color=orange, constraint=false];
+    Node0xfeb2d0 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Mona</td></tr>
-            <tr><td><b>ID:</b></td><td>45679</td></tr>
-            <tr><td><b>Priority:</b></td><td>-4</td></tr>
-            <tr><td><b>Description:</b></td><td>Migraine</td></tr>
+            <tr><td><b>Name:</b></td><td>Eve Davis</td></tr>
+            <tr><td><b>ID:</b></td><td>10005</td></tr>
+            <tr><td><b>Priority:</b></td><td>-8</td></tr>
+            <tr><td><b>Description:</b></td><td>Stroke</td></tr>
         </table>
     >];
-    Node0x106b3c8 -> Node0x106b340 [label="right", color=green, constraint=false];
-    Node0x106b3c8 -> Node0x106b340 [label="left", color=orange, constraint=false];
-    Node0x106b2b8 -> Node0x106b4d8 [label="right", color=green, constraint=false];
-    Node0x106b2b8 -> Node0x106af00 [label="left", color=orange, constraint=false];
-    Node0x106b4d8 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Nina</td></tr>
-            <tr><td><b>ID:</b></td><td>56780</td></tr>
-            <tr><td><b>Priority:</b></td><td>-7</td></tr>
-            <tr><td><b>Description:</b></td><td>Allergic reaction</td></tr>
-        </table>
-    >];
-    Node0x106b4d8 -> Node0x106c138 [label="child", color=blue];
-    Node0x106c138 [label=<
-        <table border="1" cellborder="0" cellspacing="0">
-            <tr><td colspan="2"><b>Node</b></td></tr>
-            <tr><td><b>Name:</b></td><td>Oscar</td></tr>
-            <tr><td><b>ID:</b></td><td>67891</td></tr>
-            <tr><td><b>Priority:</b></td><td>-6</td></tr>
-            <tr><td><b>Description:</b></td><td>Burns</td></tr>
-        </table>
-    >];
-    Node0x106b4d8 -> Node0x106af00 [label="right", color=green, constraint=false];
-    Node0x106b4d8 -> Node0x106b2b8 [label="left", color=orange, constraint=false];
-    { rank=same; Node0x106af00; Node0x106b2b8; Node0x106b4d8; }
-    { rank=same; Node0x1061890; Node0x10604b0; Node0x106b120; Node0x106b340; Node0x106b3c8; Node0x106c138; }
-    { rank=same; Node0x106af88; Node0x106b098; Node0x106b230; Node0x106b450; }
-    { rank=same; Node0x106b1a8; }
+    Node0xfeb2d0 -> Node0xfe18a0 [label="right", color=green, constraint=false];
+    Node0xfeb2d0 -> Node0xfeb1d8 [label="left", color=orange, constraint=false];
+    { rank=same; Node0xfe18a0; Node0xfe0520; Node0xfeb0e0; Node0xfeb1d8; Node0xfeb2d0; }
 }

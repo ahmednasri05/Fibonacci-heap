@@ -4,14 +4,12 @@
 #include <string>
 #include "Fibonacci_Heap.h"
 #include "Patient.hpp"
-#include <unordered_map>
-
 using namespace std;
 
 class TaskManager {
 private:
     FibonacciHeap<Patient> patientHeap; // Fibonacci heap for managing patients
-    unordered_map<int, Patient> patientMap; // Maps patient ID to their node in the heap
+    HashMap<int, Patient*> patientMap;  // Maps patient ID to their node in the heap
     bool patientExists(int id) const;
 
 public:
