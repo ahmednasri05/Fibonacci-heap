@@ -8,8 +8,8 @@ using namespace std;
 Patient::Patient() : name(""), id(0), age(0), UrgencyScore(0), description(""), priority(0) {
     time_t now = time(0);
     checkInDate = *localtime(&now);
-    priority = calculatePriority(); // Ensure priority is calculated
-} 
+    priority = calculatePriority() *-1; // Ensure priority is calculated
+}
 
 Patient::Patient(const string& name, int id, int age, int UrgencyScore, string description)
     : name(name), id(id), age(age), UrgencyScore(UrgencyScore), description(description) {
@@ -98,7 +98,7 @@ const string Patient::getCheckInDate() const {
 
 void Patient::updateUrgencyScore(int newUrgencyScore) {
     UrgencyScore = newUrgencyScore;
-    priority = calculatePriority(); // Ensure priority is updated
+    priority = calculatePriority() *-1; // Ensure priority is updated
 }
 
 const string& Patient::getDescription() const {

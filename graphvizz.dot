@@ -1,0 +1,12 @@
+digraph LinkedList {
+    node [shape=record];
+
+    node1 [label="{ data | 1 | <next> }"];
+    node2 [label="{ data | 2 | <next> }"];
+    node3 [label="{ data | 3 | <next> }"];
+    node4 [label="{ data | 4 | <next> }"];
+
+    node1:next -> node2;
+    node2:next -> node3;
+    node3:next -> node4;
+}
