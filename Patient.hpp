@@ -1,6 +1,6 @@
-#ifndef PATIENT_HPP
-#define PATIENT_HPP
-
+// #ifndef PATIENT_HPP
+// #define PATIENT_HPP
+#pragma once
 #include <string>
 #include <ctime>
 
@@ -38,4 +38,4 @@ public:
 
 };
 
-#endif // PATIENT_HPP
+//#endif // PATIENT_HPP
