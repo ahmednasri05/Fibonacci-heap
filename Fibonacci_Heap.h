@@ -1,5 +1,4 @@
-#ifndef FIBONACCI_HEAP_H
-#define FIBONACCI_HEAP_H
+#pragma once
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
@@ -47,20 +46,19 @@ private:
     void cascadingCut(Node *y);
     void deleteAll(Node *node);
     void swap(Node *&x, Node *&y);
-    void printTreeAux(Node *node, int level);
     string escapeString(const string &str);
 
 public:
     FibonacciHeap();
     ~FibonacciHeap();
 
-    void insert(ValueType &value);
+    void insert(const ValueType &value);
     void merge(FibonacciHeap &other);
     bool isEmpty() const;
     ValueType extractMin();
-    void decreaseKey(ValueType oldValue, ValueType newValue);
-    typename FibonacciHeap<ValueType>::NodePointer findNode(ValueType value);
-    void deleteNode(ValueType value); // has to take ValueType not Node*
+    void decreaseKey(const ValueType &oldValue,const ValueType &newValue);
+    typename FibonacciHeap<ValueType>::NodePointer findNode(const ValueType &value);
+    void deleteNode(const ValueType &value); // has to take ValueType not Node*
     ValueType getMin() const;
     void print();
 };
@@ -79,7 +77,7 @@ FibonacciHeap<ValueType>::~FibonacciHeap()
 }
 
 template <typename ValueType>
-void FibonacciHeap<ValueType>::insert(ValueType &value)
+void FibonacciHeap<ValueType>::insert(const ValueType &value)
 {
     Node *x = new Node(value);
     // x->value.setPriority(value.getPriority());
@@ -96,12 +94,9 @@ void FibonacciHeap<ValueType>::insert(ValueType &value)
         x->left = minNode->left;
         minNode->left->right = x;
         minNode->left = x;
-        //  cout << "Get pri " << value.getPriority() << endl;
-        //  cout << "Inserting Patient ID: " << x->value.getId() << ", Priority: " << x->value.getPriority() <<"urgency: "<< x->value.getUrgencyScore() << endl;
         if (x->value < minNode->value)
         {
             minNode = x;
-            // cout << "New minNode set to Patient ID: " << minNode->value.getId() << ", Priority: " << minNode->value.getPriority() << endl;
         }
     }
     nodeMap.insertDouble(value.getId(), x);
@@ -193,7 +188,7 @@ bool FibonacciHeap<ValueType>::isEmpty() const
 }
 
 template <typename ValueType>
-void FibonacciHeap<ValueType>::decreaseKey(ValueType oldValue, ValueType newValue)
+void FibonacciHeap<ValueType>::decreaseKey(const ValueType &oldValue,const ValueType &newValue)
 {
     if (newValue > oldValue)
     {
@@ -270,13 +265,13 @@ void FibonacciHeap<ValueType>::cascadingCut(Node *y)
 }
 
 template <typename ValueType>
-typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::findNode(ValueType value)
+typename FibonacciHeap<ValueType>::NodePointer FibonacciHeap<ValueType>::findNode(const ValueType &value)
 {
     return nodeMap.searchDouble(value.getId());
 }
 
 template <typename ValueType>
-void FibonacciHeap<ValueType>::deleteNode(ValueType value)
+void FibonacciHeap<ValueType>::deleteNode(const ValueType &value)
 {
     Node *node = findNode(value);
     ValueType newValue = value;
@@ -397,38 +392,6 @@ void FibonacciHeap<ValueType>::deleteAll(Node *node)
 {
     // Empty implementation
 }
-template <typename ValueType>
-void FibonacciHeap<ValueType>::printTreeAux(Node *node, int level)
-{
-    if (!node)
-        return;
-
-    Node *start = node;
-    do
-    {
-        // Indent according to the level
-        for (int i = 0; i < level; ++i)
-        {
-            cout << "   ";
-        }
-        // Print the node value
-        cout << node->value;
-        if (node->child)
-        {
-            cout << " -> {" << endl;
-            printTreeAux(node->child, level + 1);
-            for (int i = 0; i < level; ++i)
-            {
-                cout << "   ";
-            }
-            cout << "}";
-        }
-        cout << endl;
-
-        node = node->right;
-    } while (node != start);
-}
-
 template <typename ValueType>
 void FibonacciHeap<ValueType>::print()
 {
@@ -559,4 +522,3 @@ string FibonacciHeap<ValueType>::escapeString(const string &str)
     }
     return escaped;
 }
-#endif // FIBONACCI_HEAP_H

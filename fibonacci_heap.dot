@@ -2,7 +2,7 @@ digraph FibonacciHeap {
     graph [rankdir=TB];
     node [shape=plaintext];
     MinPointer [shape=plaintext, label="<Minimum Node>", fontcolor=red];
-    Node0x10a7dd8 [label=<
+    Node0x11b7dd8 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>jim</td></tr>
@@ -11,9 +11,9 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>broken arm</td></tr>
         </table>
     >];
-    MinPointer -> Node0x10a7dd8 [color=red, penwidth=2];
-    Node0x10a7dd8 -> Node0x10a7ed0 [label="child", color=blue];
-    Node0x10a7ed0 [label=<
+    MinPointer -> Node0x11b7dd8 [color=red, penwidth=2];
+    Node0x11b7dd8 -> Node0x11b7ed0 [label="child", color=blue];
+    Node0x11b7ed0 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>jerry</td></tr>
@@ -22,9 +22,9 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>flu</td></tr>
         </table>
     >];
-    Node0x10a7ed0 -> Node0x10a80c0 [label="right", color=green, constraint=false];
-    Node0x10a7ed0 -> Node0x10a1810 [label="left", color=orange, constraint=false];
-    Node0x10a80c0 [label=<
+    Node0x11b7ed0 -> Node0x11b80c0 [label="right", color=green, constraint=false];
+    Node0x11b7ed0 -> Node0x11b1810 [label="left", color=orange, constraint=false];
+    Node0x11b80c0 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>josh</td></tr>
@@ -33,8 +33,8 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>migraine</td></tr>
         </table>
     >];
-    Node0x10a80c0 -> Node0x10a7fc8 [label="child", color=blue];
-    Node0x10a7fc8 [label=<
+    Node0x11b80c0 -> Node0x11b7fc8 [label="child", color=blue];
+    Node0x11b7fc8 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>jasmine</td></tr>
@@ -43,9 +43,9 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>sprained ankle</td></tr>
         </table>
     >];
-    Node0x10a80c0 -> Node0x10a1810 [label="right", color=green, constraint=false];
-    Node0x10a80c0 -> Node0x10a7ed0 [label="left", color=orange, constraint=false];
-    Node0x10a1810 [label=<
+    Node0x11b80c0 -> Node0x11b1810 [label="right", color=green, constraint=false];
+    Node0x11b80c0 -> Node0x11b7ed0 [label="left", color=orange, constraint=false];
+    Node0x11b1810 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>jane</td></tr>
@@ -54,8 +54,8 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>fever</td></tr>
         </table>
     >];
-    Node0x10a1810 -> Node0x10a7af0 [label="child", color=blue];
-    Node0x10a7af0 [label=<
+    Node0x11b1810 -> Node0x11b7af0 [label="child", color=blue];
+    Node0x11b7af0 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>joe</td></tr>
@@ -64,9 +64,9 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>headache</td></tr>
         </table>
     >];
-    Node0x10a7af0 -> Node0x10a7be8 [label="right", color=green, constraint=false];
-    Node0x10a7af0 -> Node0x10a7be8 [label="left", color=orange, constraint=false];
-    Node0x10a7be8 [label=<
+    Node0x11b7af0 -> Node0x11b7be8 [label="right", color=green, constraint=false];
+    Node0x11b7af0 -> Node0x11b7be8 [label="left", color=orange, constraint=false];
+    Node0x11b7be8 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>jill</td></tr>
@@ -75,8 +75,8 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>stomach ache</td></tr>
         </table>
     >];
-    Node0x10a7be8 -> Node0x10a7ce0 [label="child", color=blue];
-    Node0x10a7ce0 [label=<
+    Node0x11b7be8 -> Node0x11b7ce0 [label="child", color=blue];
+    Node0x11b7ce0 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>jack</td></tr>
@@ -85,13 +85,13 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>cold</td></tr>
         </table>
     >];
-    Node0x10a7be8 -> Node0x10a7af0 [label="right", color=green, constraint=false];
-    Node0x10a7be8 -> Node0x10a7af0 [label="left", color=orange, constraint=false];
-    Node0x10a1810 -> Node0x10a7ed0 [label="right", color=green, constraint=false];
-    Node0x10a1810 -> Node0x10a80c0 [label="left", color=orange, constraint=false];
-    Node0x10a7dd8 -> Node0x10a81b8 [label="right", color=green, constraint=false];
-    Node0x10a7dd8 -> Node0x10a8338 [label="left", color=orange, constraint=false];
-    Node0x10a81b8 [label=<
+    Node0x11b7be8 -> Node0x11b7af0 [label="right", color=green, constraint=false];
+    Node0x11b7be8 -> Node0x11b7af0 [label="left", color=orange, constraint=false];
+    Node0x11b1810 -> Node0x11b7ed0 [label="right", color=green, constraint=false];
+    Node0x11b1810 -> Node0x11b80c0 [label="left", color=orange, constraint=false];
+    Node0x11b7dd8 -> Node0x11b81b8 [label="right", color=green, constraint=false];
+    Node0x11b7dd8 -> Node0x11b8338 [label="left", color=orange, constraint=false];
+    Node0x11b81b8 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>julie</td></tr>
@@ -100,9 +100,9 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>allergy</td></tr>
         </table>
     >];
-    Node0x10a81b8 -> Node0x10a8338 [label="right", color=green, constraint=false];
-    Node0x10a81b8 -> Node0x10a7dd8 [label="left", color=orange, constraint=false];
-    Node0x10a8338 [label=<
+    Node0x11b81b8 -> Node0x11b8338 [label="right", color=green, constraint=false];
+    Node0x11b81b8 -> Node0x11b7dd8 [label="left", color=orange, constraint=false];
+    Node0x11b8338 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>jason</td></tr>
@@ -111,8 +111,8 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>burn</td></tr>
         </table>
     >];
-    Node0x10a8338 -> Node0x10a0520 [label="child", color=blue];
-    Node0x10a0520 [label=<
+    Node0x11b8338 -> Node0x11b0520 [label="child", color=blue];
+    Node0x11b0520 [label=<
         <table border="1" cellborder="0" cellspacing="0">
             <tr><td colspan="2"><b>Node</b></td></tr>
             <tr><td><b>Name:</b></td><td>julia</td></tr>
@@ -121,10 +121,10 @@ digraph FibonacciHeap {
             <tr><td><b>Description:</b></td><td>infection</td></tr>
         </table>
     >];
-    Node0x10a8338 -> Node0x10a7dd8 [label="right", color=green, constraint=false];
-    Node0x10a8338 -> Node0x10a81b8 [label="left", color=orange, constraint=false];
-    { rank=same; Node0x10a7dd8; Node0x10a81b8; Node0x10a8338; }
-    { rank=same; Node0x10a7ed0; Node0x10a80c0; Node0x10a1810; Node0x10a0520; }
-    { rank=same; Node0x10a7fc8; Node0x10a7af0; Node0x10a7be8; }
-    { rank=same; Node0x10a7ce0; }
+    Node0x11b8338 -> Node0x11b7dd8 [label="right", color=green, constraint=false];
+    Node0x11b8338 -> Node0x11b81b8 [label="left", color=orange, constraint=false];
+    { rank=same; Node0x11b7dd8; Node0x11b81b8; Node0x11b8338; }
+    { rank=same; Node0x11b7ed0; Node0x11b80c0; Node0x11b1810; Node0x11b0520; }
+    { rank=same; Node0x11b7fc8; Node0x11b7af0; Node0x11b7be8; }
+    { rank=same; Node0x11b7ce0; }
 }
