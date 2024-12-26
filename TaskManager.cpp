@@ -17,7 +17,8 @@ void TaskManager::addPatient(const string &name, int id, int age, int urgencySco
     }
     Patient *newPatient = new Patient(name, id, age, urgencyScore, description);
     patientHeap.insert(*newPatient);                          // Insert by value into the heap
-    patientMap.insertDouble(newPatient->getId(), newPatient); // Store the pointer in the map
+    patientMap.insertDouble(newPatient->getId(), newPatient);
+    listAllPatients(); // Store the pointer in the map
     cout << "Patient added successfully!\n";
 }
 
@@ -32,6 +33,7 @@ void TaskManager::processNextPatient()
     patientMap.removeDouble(nextPatient.getId());   // Remove from map
     cout << "Processing next patient:\n"
          << nextPatient << "\n";
+    listAllPatients();
 }
 
 void TaskManager::viewTopPatient()
@@ -79,6 +81,7 @@ void TaskManager::deletePatient(int id)
     patientMap.removeDouble(patient->getId()); // Remove from the map
     delete patient;                            // Free the memory
     cout << "Patient with ID " << id << " deleted successfully.\n";
+    listAllPatients();
 }
 
 void TaskManager::increaseUrgency(int id, int newUrgencyScore)
@@ -98,44 +101,45 @@ void TaskManager::increaseUrgency(int id, int newUrgencyScore)
     updatedPatient.updateUrgencyScore(newUrgencyScore); // Update urgency score
     patientHeap.decreaseKey(*patient, updatedPatient);  // Update in heap
     cout << "Urgency score for patient ID " << id << " increased successfully.\n";
+    listAllPatients();
 }
-int main()
-{
-    TaskManager tm;
-    // Add patients
-    tm.addPatient("John Doe", 10001, 90, 5, "Flu");
-    tm.addPatient("Jane Smith", 10002, 25, 2, "Cold");
-    tm.addPatient("Alice Johnson", 10003, 40, 4, "Broken leg");
-    tm.addPatient("Bob Brown", 10004, 50, 2, "Heart attack");
-    tm.addPatient("Eve Davis", 10005, 60, 4, "Stroke");
-    // List all patients
-    cout << "Listing all patients:\n";
-    tm.listAllPatients();
+// int main()
+// {
+//     TaskManager tm;
+//     // Add patients
+//     tm.addPatient("John Doe", 10001, 90, 5, "Flu");
+//     tm.addPatient("Jane Smith", 10002, 25, 2, "Cold");
+//     tm.addPatient("Alice Johnson", 10003, 40, 4, "Broken leg");
+//     tm.addPatient("Bob Brown", 10004, 50, 2, "Heart attack");
+//     tm.addPatient("Eve Davis", 10005, 60, 4, "Stroke");
+//     // List all patients
+//     cout << "Listing all patients:\n";
+//     tm.listAllPatients();
 
-    //     // cout << "\nViewing top patient:\n";
-    //     // tm.viewTopPatient();
+//     //     // cout << "\nViewing top patient:\n";
+//     //     // tm.viewTopPatient();
 
-    //     // cout << "\nProcessing next patient:\n";
-    //     // tm.processNextPatient();
+//     //     // cout << "\nProcessing next patient:\n";
+//     //     // tm.processNextPatient();
 
-    //     // cout << "\nListing all patients after processing one:\n";
-    //     // tm.listAllPatients();
+//     //     // cout << "\nListing all patients after processing one:\n";
+//     //     // tm.listAllPatients();
 
-    //     // cout << "\nFinding a specific patient with ID 10001:\n";
-    //     // tm.findPatient(10002);
+//     //     // cout << "\nFinding a specific patient with ID 10001:\n";
+//     //     // tm.findPatient(10002);
 
-    cout << "\nIncreasing urgency score of patient with ID 10002:\n";
-    tm.increaseUrgency(10002, 5);
+//     cout << "\nIncreasing urgency score of patient with ID 10002:\n";
+//     tm.increaseUrgency(10002, 5);
 
-    //     // cout << "\nViewing top patient after increasing urgency score:\n";
-    //     // tm.viewTopPatient();
+//     //     // cout << "\nViewing top patient after increasing urgency score:\n";
+//     //     // tm.viewTopPatient();
 
-    //     // cout << "\nDeleting patient with ID 10003:\n";
-    //     // tm.deletePatient(10003);
+//     //     // cout << "\nDeleting patient with ID 10003:\n";
+//     //     // tm.deletePatient(10003);
 
-    cout << "\nListing all patients after deletion:\n";
-    tm.listAllPatients();
+//     cout << "\nListing all patients after deletion:\n";
+//     tm.listAllPatients();
 
-    //     return 0;
-    //
-}
+//     //     return 0;
+//     //
+// }

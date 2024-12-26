@@ -2,6 +2,7 @@
 #include <string>
 #include "TaskManager.hpp"
 #include "TaskManager.cpp"
+#include <windows.h>
 using namespace std;
 
 void displayMenu()
@@ -16,6 +17,42 @@ void displayMenu()
     cout << "7. Delete a patient\n";
     cout << "8. Exit\n";
     cout << "Enter your choice: ";
+}
+
+void initializer()
+{
+TaskManager tm;
+// Your code
+tm.addPatient("john", 12345, 19, 5, "broken leg");
+Sleep(1000);
+tm.addPatient("jane", 12346, 20, 4, "fever");
+Sleep(1000);
+tm.addPatient("joe", 12347, 21, 3, "headache");
+Sleep(1000);
+tm.addPatient("jill", 12348, 22, 2, "stomach ache");
+Sleep(1000);
+tm.addPatient("jack", 12349, 23, 1, "cold");
+Sleep(250);
+tm.addPatient("jim", 12350, 24, 5, "broken arm");
+Sleep(250);
+tm.addPatient("jerry", 12351, 25, 4, "flu");
+Sleep(250);
+tm.addPatient("jasmine", 12352, 26, 3, "sprained ankle");
+Sleep(250);
+tm.addPatient("josh", 12353, 27, 2, "migraine");
+Sleep(250);
+tm.addPatient("julie", 12354, 28, 1, "allergy");
+Sleep(250);
+tm.addPatient("jake", 12355, 29, 5, "fracture");
+Sleep(250);
+tm.processNextPatient();
+Sleep(1000);
+tm.increaseUrgency(12346, 5);
+tm.addPatient("jason", 12356, 30, 4, "burn");
+Sleep(1000);
+tm.addPatient("julia", 12357, 31, 3, "infection");
+Sleep(1000);
+tm.processNextPatient();
 }
 
 void handleAddPatient(TaskManager &tm)
@@ -78,6 +115,7 @@ void handleFindPatient(TaskManager &tm)
 
 int main()
 {
+    initializer();
     TaskManager tm;
     int choice;
 
