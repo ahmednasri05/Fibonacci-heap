@@ -59,7 +59,7 @@ By leveraging the Fibonacci Heap, this system is ideal for real-time emergency s
 ---
 
 ## **Visualization**  
-![Fibonacci Heap Visualization](INSERT_YOUR_IMAGE_LINK_HERE)  
+![Fibonacci Heap Visualization](./fibonacci_heap1.png)  
 *Dynamic patient queue visualized using Graphviz.*
 
 ---
