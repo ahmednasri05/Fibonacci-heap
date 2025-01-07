@@ -64,29 +64,6 @@ By leveraging the Fibonacci Heap, this system is ideal for real-time emergency s
 
 ---
 
-## **Setup and Usage**  
-
-### **Prerequisites**  
-- C++ Compiler (e.g., GCC or Clang)  
-- Graphviz (for heap visualization)
-
-### **Steps**  
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/yourusername/patient-manager.git
-   cd patient-manager
-   ```
-2. Compile the project:  
-   ```bash
-   g++ -std=c++17 Patient.cpp TaskManager.cpp -o patient_manager
-   ```
-3. Run the program:  
-   ```bash
-   ./patient_manager
-   ```
-
----
-
 ## **Acknowledgments**  
 This project leverages advanced data structures to optimize patient management in emergency scenarios, demonstrating the power of algorithmic efficiency in real-world applications.  
 
